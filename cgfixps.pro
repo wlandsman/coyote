@@ -101,6 +101,8 @@
 ;        PostScript file structure changed in IDL 8. Made adjustment to find the 
 ;            PageBoundingBox line. 19 Dec 2010. DWF.
 ;        Added a check for an input file with zero length. No fix required. Clean up and return. 1 July 2016. DWF.
+;        My check for a zero length file was faulty, because I was not opening the file before
+;            I checked its length. Fixed. 13 Nov 2016. DWF.
 ;            
 ; :Copyright:
 ;     Copyright (c) 2009-2016, Fanning Software Consulting, Inc.
@@ -195,8 +197,15 @@ PRO cgFIXPS, in_filename, out_filename, $
     Free_lun, in_lun
     Free_lun, out_lun
     File_Delete, out_filename
+    ;Print, 'Zero Length File Encountered...'
     RETURN
   ENDIF
+  
+  ; Move along in the file until the end of the Prolog.
+  line = ""
+  count = 0
+  target = "void"
+  buffer = StrArr(100)
   
   WHILE target NE '%%EndProlog' DO BEGIN
       ReadF, in_lun, line
