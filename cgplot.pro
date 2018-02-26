@@ -341,6 +341,7 @@
 ;         Added XMargin and YMargin keywords against my better judgement. 15 December 2014. DWF.
 ;         Now taking default values for Title, XTitle, YTitle, XStyle, and YStyle from corresponding
 ;              system variables. 15 December 2014. DWF.
+;         Yrange keyword is not a default value for !Y.crange Feb 2018 W. Landsman
 ;         
 ; :Copyright:
 ;     Copyright (c) 2010-2014, Fanning Software Consulting, Inc.
@@ -911,8 +912,8 @@ PRO cgPlot, x, y, $
            IF ~Keyword_Set(nodata) THEN OPlot, indep, dep, COLOR=color, _EXTRA=extra  
         ENDIF  
     ENDELSE
-    IF N_Elements(xrange) EQ 0 THEN xrange = !X.CRange
-    IF N_Elements(yrange) EQ 0 THEN yrange = !Y.CRange
+    xcrange = !X.CRange
+    ycrange = !Y.CRange
     IF Abs(psym) GT 0 THEN BEGIN
         asymbol = cgSymCat(Abs(psym), COLOR=symcolor, _Extra=extra)
         IF ~Keyword_Set(nodata) THEN OPlot, indep, dep, COLOR=symcolor, $
@@ -961,9 +962,9 @@ PRO cgPlot, x, y, $
             IF (N_Elements(err_xhigh) NE 0) THEN BEGIN
                 xhigh = indep + err_xhigh
                 IF !X.Type EQ 1 THEN BEGIN ; Log X axis
-                   indices = Where(indep GE 10^xrange[0] AND indep LE 10^xrange[1], cnt)
+                   indices = Where(indep GE 10^xcrange[0] AND indep LE 10^xcrange[1], cnt)
                 ENDIF ELSE BEGIN
-                   indices = Where(indep GE xrange[0] AND indep LE xrange[1], cnt)
+                   indices = Where(indep GE xcrange[0] AND indep LE xcrange[1], cnt)
                 ENDELSE
                 IF cnt GT 0 && cnt NE N_Elements(xhigh) THEN BEGIN
                     indep_ = indep[indices]
@@ -986,9 +987,9 @@ PRO cgPlot, x, y, $
             IF (N_Elements(err_xlow) NE 0) THEN BEGIN
                 xlow = indep - err_xlow
                 IF !X.Type EQ 1 THEN BEGIN ; Log X axis
-                    indices = Where(indep GE 10^xrange[0] AND indep LE 10^xrange[1], cnt)
+                    indices = Where(indep GE 10^xcrange[0] AND indep LE 10^xcrange[1], cnt)
                 ENDIF ELSE BEGIN
-                    indices = Where(indep GE xrange[0] AND indep LE xrange[1], cnt)
+                    indices = Where(indep GE xcrange[0] AND indep LE xcrange[1], cnt)
                 ENDELSE
                 IF cnt GT 0 && cnt NE N_Elements(xlow) THEN BEGIN
                     indep_ = indep[indices]
@@ -1022,9 +1023,9 @@ PRO cgPlot, x, y, $
             IF (N_Elements(err_yhigh) NE 0) THEN BEGIN
                 yhigh = dep + err_yhigh
                 IF !Y.Type EQ 1 THEN BEGIN ; Log Y axis
-                    indices = Where(dep GE 10^yrange[0] AND dep LE 10^yrange[1], cnt)
+                    indices = Where(dep GE 10^ycrange[0] AND dep LE 10^ycrange[1], cnt)
                 ENDIF ELSE BEGIN
-                    indices = Where(dep GE yrange[0] AND dep LE yrange[1], cnt)
+                    indices = Where(dep GE ycrange[0] AND dep LE ycrange[1], cnt)
                 ENDELSE
                 IF cnt GT 0 && cnt NE N_Elements(yhigh) THEN BEGIN
                     indep_ = indep[indices]
@@ -1034,6 +1035,7 @@ PRO cgPlot, x, y, $
                     indep_ = indep
                     dep_ = dep
                 ENDELSE
+            
                 FOR j=0,N_Elements(yhigh)-1 DO BEGIN
                     PlotS, [indep_[j], indep_[j]], [yhigh[j], dep_[j]], Color=err_color, Thick=err_thick, $
                         NoClip=1-Keyword_Set(err_clip)
@@ -1047,11 +1049,11 @@ PRO cgPlot, x, y, $
             IF (N_Elements(err_ylow) NE 0) THEN BEGIN
                 ylow = dep - err_ylow
                 IF !Y.Type EQ 1 THEN BEGIN ; Log Y axis
-                    indices = Where(dep GE 10^yrange[0] AND dep LE 10^yrange[1], cnt)
+                    indices = Where(dep GE 10^ycrange[0] AND dep LE 10^ycrange[1], cnt)
                 ENDIF ELSE BEGIN
-                    indices = Where(dep GE yrange[0] AND dep LE yrange[1], cnt)
+                    indices = Where(dep GE ycrange[0] AND dep LE ycrange[1], cnt)
                 ENDELSE
-                IF cnt GT 0 && cnt NE N_Elements(yhigh) THEN BEGIN
+                IF cnt GT 0 && cnt NE N_Elements(ylow) THEN BEGIN
                     indep_ = indep[indices]
                     dep_ = dep[indices]
                     ylow = ylow[indices]
