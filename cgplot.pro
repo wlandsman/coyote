@@ -343,6 +343,7 @@
 ;         Added XMargin and YMargin keywords against my better judgement. 15 December 2014. DWF.
 ;         Now taking default values for Title, XTitle, YTitle, XStyle, and YStyle from corresponding
 ;              system variables. 15 December 2014. DWF.
+;         Check for symbols in subtitle 16 November 2017 sappjw
 ;         Yrange keyword is not a default value for !Y.crange Feb 2018 W. Landsman
 ;         
 ; :Copyright:
