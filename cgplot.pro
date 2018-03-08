@@ -168,6 +168,8 @@
 ;        Any normal IDL PSYM values, plus any value supported by the Coyote Library
 ;        routine cgSYMCAT. An integer between 0 and 46. This may also be set to the
 ;        "name" of a symbol, such as returned from Print, cgSymCat(/Names).
+;     subtitle: in, optional, type=string
+;        The subtitle of the plot.
 ;     symcolor: in, optional, type=string/integer, default='black'
 ;        If this keyword is a string, the name of the symbol color. By default, 'black'.
 ;        Otherwise, the keyword is assumed to be a color index into the current color table.
@@ -378,6 +380,7 @@ PRO cgPlot, x, y, $
     PSYM=psymIn, $
     SYMCOLOR=ssymcolor, $
     SYMSIZE=symsize, $
+    SUBTITLE=subtitle, $
     TITLE=title, $
     TRADITIONAL=traditional, $
     WINDOW=window, $
@@ -454,6 +457,7 @@ PRO cgPlot, x, y, $
                 PSYM=psymIn, $
                 SYMCOLOR=ssymcolor, $
                 SYMSIZE=symsize, $
+                SUBTITLE=subtitle, $
                 TITLE=title, $
                 TRADITIONAL=traditional, $
                 XMARGIN=xmargin, $
@@ -499,6 +503,7 @@ PRO cgPlot, x, y, $
             OVERPLOT=overplot, $
             POSITION=position, $
             PSYM=psymIn, $
+            SUBTITLE=subtitle, $
             SYMCOLOR=ssymcolor, $
             SYMSIZE=symsize, $
             TITLE=title, $
@@ -721,6 +726,7 @@ PRO cgPlot, x, y, $
     SetDefaultValue, title, !P.Title
     SetDefaultValue, xtitle, !X.Title
     SetDefaultValue, ytitle, !Y.Title
+    SetDefaultValue, subtitle, !P.Subtitle
     SetDefaultValue, xstyle, !X.Style
     SetDefaultValue, ystyle, !Y.Style
     IF N_Elements(xrange) NE 0 THEN BEGIN
@@ -733,6 +739,7 @@ PRO cgPlot, x, y, $
     title = cgCheckForSymbols(title)
     xtitle = cgCheckForSymbols(xtitle)
     ytitle = cgCheckForSymbols(ytitle)
+    subtitle = cgCheckForSymbols(subtitle)
     IF (N_Elements(label) NE 0) && (label NE "") THEN title = ""
     traditional = Keyword_Set(traditional)
     background = cgDefaultColor(sbackground, /BACKGROUND, TRADITIONAL=traditional)
@@ -906,7 +913,7 @@ PRO cgPlot, x, y, $
     ENDIF ELSE BEGIN
       Plot, indep, dep, BACKGROUND=background, COLOR=axiscolor, CHARSIZE=charsize, $
             POSITION=position, /NODATA, NOERASE=tempNoErase, FONT=font, TITLE=title, $
-            XTITLE=xtitle, YTITLE=ytitle, XRANGE=xrange, YRANGE=yrange, $
+            SUBTITLE=subtitle, XTITLE=xtitle, YTITLE=ytitle, XRANGE=xrange, YRANGE=yrange, $
             XSTYLE=xstyle, YSTYLE=ystyle, _STRICT_EXTRA=extra
         IF psym LE 0 THEN BEGIN
            IF ~Keyword_Set(nodata) THEN OPlot, indep, dep, COLOR=color, _EXTRA=extra  
