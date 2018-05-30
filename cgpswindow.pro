@@ -305,20 +305,20 @@ FUNCTION cgPSWINDOW, $
        'LETTER': BEGIN
           shortside = 8.5
           longside = 11.0
-          ENDCASE
+          END
        'LEGAL': BEGIN
           shortside = 8.5
           longside = 14.0
-          ENDCASE
+          END
         'A4': BEGIN
           shortside = 8.27
           longside = 11.7
-          ENDCASE
+          END
         ELSE: BEGIN
           Message, 'Unknown page size. Using LETTER...', /Informational
           shortside = 8.5
           longside = 11.0
-          ENDCASE
+          END
     ENDCASE
     
     ; Need measurements in centimeters?

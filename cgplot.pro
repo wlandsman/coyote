@@ -528,12 +528,12 @@ PRO cgPlot, x, y, $
        1: BEGIN
        _dep = x
        _indep = Findgen(N_Elements(x))
-       ENDCASE
+       END
     
        2: BEGIN
        _dep = y
        _indep = x
-       ENDCASE
+       END
     
     ENDCASE
     

@@ -134,11 +134,11 @@ FUNCTION cgScaleVector, vector, minRange, maxRange, $
             minRange = 0.0
             maxRange = 1.0
          ENDELSE
-         ENDCASE
+         END
       2: BEGIN
          IF Keyword_Set(double) THEN maxRange = 1.0D > (minRange + 0.0001D) ELSE $
             maxRange = 1.0 > (minRange + 0.0001)
-         ENDCASE
+         END
       ELSE:
    ENDCASE
 

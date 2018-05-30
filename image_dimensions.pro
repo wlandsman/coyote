@@ -136,19 +136,19 @@ FUNCTION Image_Dimensions, image, $
              ysize = dims[2]
              xindex = 1
              yindex = 2
-             ENDCASE
+             END
           1: BEGIN
              xsize = dims[0]
              ysize = dims[2]
              xindex = 0
              yindex = 2
-             ENDCASE
+             END
           2: BEGIN
              xsize = dims[0]
              ysize = dims[1]
              xindex = 0
              yindex = 1
-             ENDCASE
+             END
        ENDCASE
     ENDELSE
     

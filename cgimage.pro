@@ -2053,31 +2053,31 @@ PRO cgImage, image, x, y, $
                 Device, Get_Visual_Depth=thisDepth
                 IF thisRelease GE 5.2 THEN Device, Get_Decomposed=thisDecomposed
                 Device, Decomposed=0
-                ENDCASE
+                END
             'WIN': BEGIN
 
                 Device, Get_Visual_Depth=thisDepth
                 IF thisRelease GE 5.2 THEN Device, Get_Decomposed=thisDecomposed
                 Device, Decomposed=0
-                ENDCASE
+                END
             'MAC': BEGIN
                 Device, Get_Visual_Depth=thisDepth
                 IF thisRelease GE 5.2 THEN Device, Get_Decomposed=thisDecomposed
                 Device, Decomposed=0
-                ENDCASE
+                END
             'Z': BEGIN
                 ; Fix for 24-bit Z-buffer.
                 IF (thisRelease GE 6.4) THEN BEGIN
                    Device, Get_Decomposed=thisDecomposed, Get_Pixel_Depth=thisDepth
                    Device, Decomposed=0
                 ENDIF ELSE thisDepth = 8
-                ENDCASE
+                END
             'PS': BEGIN
                 IF (thisRelease GE 7.1) THEN BEGIN
                    thisDecomposed = cgGetColorState(Depth=thisDepth)
                    Device, Decomposed=0
                 ENDIF ELSE thisDepth = 8
-                ENDCASE
+                END
             ELSE: thisDepth = 8
        ENDCASE
 
@@ -2097,24 +2097,24 @@ PRO cgImage, image, x, y, $
              Device, Get_Visual_Depth=thisDepth
              IF thisRelease GE 5.2 THEN Device, Get_Decomposed=thisDecomposed
              IF thisDepth GT 8 THEN Device, Decomposed=1
-             ENDCASE
+             END
           'WIN': BEGIN
              Device, Get_Visual_Depth=thisDepth
              IF thisRelease GE 5.2 THEN Device, Get_Decomposed=thisDecomposed
              IF thisDepth GT 8 THEN Device, Decomposed=1
-             ENDCASE
+             END
           'MAC': BEGIN
              Device, Get_Visual_Depth=thisDepth
              IF thisRelease GE 5.2 THEN Device, Get_Decomposed=thisDecomposed
              IF thisDepth GT 8 THEN Device, Decomposed=1
-             ENDCASE
+             END
           'Z': BEGIN
              ; Fix for 24-bit Z-buffer.
              IF (Float(!Version.Release) GE 6.4) THEN BEGIN
                 Device, DECOMPOSED=1, Set_Pixel_Depth=24
                 thisDepth = 24
              ENDIF ELSE thisDepth = 8
-             ENDCASE
+             END
           'PS': BEGIN
              IF (Float(!Version.Release) GE 7.1) THEN BEGIN
                    thisDecomposed = cgGetColorState(Depth=thisDepth)
@@ -2123,7 +2123,7 @@ PRO cgImage, image, x, y, $
                    Device, DECOMPOSED=1, BITS_PER_PIXEL=8, COLOR=1
                    TVLCT, r, g, b
              ENDIF ELSE thisDepth = 8
-             ENDCASE
+             END
 
           ELSE: thisDepth = 8
        ENDCASE
@@ -2132,15 +2132,15 @@ PRO cgImage, image, x, y, $
           1: BEGIN
              imgXsize = FLOAT(s[2])
              imgYsize = FLOAT(s[3])
-             ENDCASE
+             END
           2: BEGIN
              imgXsize = FLOAT(s[1])
              imgYsize = FLOAT(s[3])
-             ENDCASE
+             END
           3: BEGIN
              imgXsize = FLOAT(s[1])
              imgYsize = FLOAT(s[2])
-             ENDCASE
+             END
        ENDCASE
 
     ENDIF
@@ -2404,10 +2404,10 @@ PRO cgImage, image, x, y, $
     CASE StrUpCase(!D.NAME) OF
        'X': BEGIN
           IF thisRelease GE 5.2 THEN Device, Decomposed=thisDecomposed
-          ENDCASE
+          END
        'WIN': BEGIN
           IF thisRelease GE 5.2 THEN Device, Decomposed=thisDecomposed
-          ENDCASE
+          END
        'MAC': BEGIN
           IF thisRelease GE 5.2 THEN BEGIN
              Device, Decomposed=thisDecomposed
@@ -2416,16 +2416,16 @@ PRO cgImage, image, x, y, $
              ; color tables after changing the decomposed state.
              TV, [0]
           ENDIF
-          ENDCASE
+          END
        'Z': BEGIN
           IF thisRelease GE 6.4 THEN Device, Decomposed=thisDecomposed
-          ENDCASE
+          END
        'PS': BEGIN
           IF thisRelease GE 7.1 THEN BEGIN
               Device, DECOMPOSED=thisDecomposed
               IF N_Elements(r) NE 0 THEN TVLCT, r, g, b
           ENDIF
-          ENDCASE
+          END
        ELSE:
     ENDCASE
 

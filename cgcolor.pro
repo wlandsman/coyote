@@ -817,7 +817,7 @@ FUNCTION cgColor, theColour, colorIndex, $
                    IF count EQ 0 THEN Message, 'Cannot find color: ' + theColor, /NoName
                 ENDELSE
              ENDIF ELSE colorIndex = 0S > colorIndex < Fix((!D.Table_Size - 1))
-          ENDCASE
+          END
     
        1: BEGIN
              type = Size(theColor, /TNAME)
@@ -832,7 +832,7 @@ FUNCTION cgColor, theColour, colorIndex, $
                    IF count EQ 0 THEN Message, 'Cannot find color: ' + theColor, /NoName
                 ENDELSE
              ENDIF ELSE colorIndex = 0S > colorIndex < Fix(!D.Table_Size - 1)
-             ENDCASE
+             END
     
        ELSE: BEGIN
              type = Size(theColor, /TNAME)
