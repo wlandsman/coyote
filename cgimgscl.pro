@@ -167,6 +167,7 @@
 ;          in cgImage. 18 October 2012. DWF.
 ;       Only 2D images can be scaled. 18 October 2012. DWF.
 ;       Made LOG stretch a real log stretch and add a compression stretch. 27 March 2015. DWF.
+;       Fixed typo in CONSTANT keyword June 2021 W. Landsman/fawltylanguage
 ;
 ; :Copyright:
 ;     Copyright (c) 2012-2015, Fanning Software Consulting, Inc.
@@ -176,7 +177,7 @@ FUNCTION cgImgScl, image, xsize, ysize, $
    BOTTOM=bottom, $
    BETA=beta, $
    CLIP=clip, $
-   CONSTANT=contant, $
+   CONSTANT=constant, $
    EXCLUDE=exclude, $
    EXPONENT=exponent, $
    GAMMA=gamma, $
